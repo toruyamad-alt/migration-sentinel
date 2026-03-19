@@ -34,13 +34,13 @@
     "typescript"
   ],
   "author": "Codex prototype",
-  "homepage": "https://github.com/your-org/migration-sentinel",
+  "homepage": "https://github.com/toruyamad-alt/migration-sentinel",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/migration-sentinel.git"
+    "url": "git+https://github.com/toruyamad-alt/migration-sentinel.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/migration-sentinel/issues"
+    "url": "https://github.com/toruyamad-alt/migration-sentinel/issues"
   },
   "license": "MIT",
   "engines": {

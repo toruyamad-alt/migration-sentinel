@@ -147,10 +147,10 @@ npm run pack:dry
 
 ## Packaging and launch notes
 
-- [`action.yml`](/Users/ty/Desktop/brain/action.yml): GitHub Action metadata
-- [`docs/pricing.md`](/Users/ty/Desktop/brain/docs/pricing.md): suggested pricing tiers
-- [`docs/marketplace-listing.md`](/Users/ty/Desktop/brain/docs/marketplace-listing.md): listing copy
-- [`docs/launch-playbook.md`](/Users/ty/Desktop/brain/docs/launch-playbook.md): final steps requiring your accounts
+- `action.yml`: GitHub Action metadata
+- `docs/pricing.md`: suggested pricing tiers
+- `docs/marketplace-listing.md`: listing copy
+- `docs/launch-playbook.md`: final steps requiring your accounts
 
 ## Project structure
 

@@ -1,0 +1,53 @@
+{
+  "name": "migration-sentinel",
+  "version": "0.1.0",
+  "description": "CLI to flag risky database migrations before they reach production.",
+  "type": "module",
+  "files": [
+    "dist",
+    "action.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "migration-sentinel": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsx src/index.ts",
+    "demo": "tsx src/index.ts fixtures",
+    "start": "tsx src/index.ts fixtures",
+    "demo:github": "tsx src/index.ts fixtures --output github",
+    "demo:json": "tsx src/index.ts fixtures --output json",
+    "test": "npm run build && npm run check -- fixtures/safe && (npm run check -- fixtures/unsafe || test $? -eq 2)",
+    "pack:dry": "npm pack --dry-run"
+  },
+  "keywords": [
+    "github-action",
+    "cli",
+    "database",
+    "migration",
+    "postgres",
+    "prisma",
+    "rails",
+    "typescript"
+  ],
+  "author": "Codex prototype",
+  "homepage": "https://github.com/your-org/migration-sentinel",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/migration-sentinel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/migration-sentinel/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}

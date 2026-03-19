@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run check -- fixtures/safe
+      - run: npm run check -- fixtures/unsafe || test $? -eq 2
+
+  action-smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        id: sentinel
+        with:
+          target: fixtures
+          output: github
+          fail-on: high
+      - run: test "${{ steps.sentinel.outputs.finding-count }}" = "4"

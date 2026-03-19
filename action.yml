@@ -1,0 +1,33 @@
+name: "Migration Sentinel"
+description: "Flag risky database migrations in pull requests before they reach production."
+author: "Codex prototype"
+branding:
+  icon: "shield"
+  color: "blue"
+inputs:
+  target:
+    description: "Directory or file path to scan"
+    required: false
+    default: "migrations"
+  config:
+    description: "Optional path to .migration-sentinel.json"
+    required: false
+    default: ".migration-sentinel.json"
+  output:
+    description: "Output format: text, json, or github"
+    required: false
+    default: "github"
+  fail-on:
+    description: "Failure threshold: none, medium, or high"
+    required: false
+    default: "high"
+outputs:
+  finding-count:
+    description: "Total findings"
+  high-count:
+    description: "High severity findings"
+  medium-count:
+    description: "Medium severity findings"
+runs:
+  using: "node20"
+  main: "dist/index.js"

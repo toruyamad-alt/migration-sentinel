@@ -28,4 +28,6 @@ jobs:
           target: fixtures
           output: github
           fail-on: high
+        continue-on-error: true
       - run: test "${{ steps.sentinel.outputs.finding-count }}" = "4"
+      - run: test "${{ steps.sentinel.outcome }}" = "failure"

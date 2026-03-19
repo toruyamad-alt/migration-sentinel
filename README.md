@@ -1,12 +1,24 @@
 # migration-sentinel
 
-`migration-sentinel` is a small CLI and GitHub Action that flags risky database migration patterns before they reach production.
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-Migration%20Sentinel-blue?logo=github)](https://github.com/marketplace/actions/migration-sentinel)
 
-This is intentionally shaped like a sellable niche tool:
+Stop risky database migrations before they break production.
 
-- It targets a painful, expensive failure mode.
-- It works locally and can be wrapped as a GitHub Action or Marketplace product.
-- It is narrow enough to compete with broad AI code review tools.
+`migration-sentinel` is a GitHub Action and CLI that flags high-cost migration mistakes in pull requests before they hit production.
+
+It is intentionally narrow:
+
+- It focuses on migration failures, table locks, and irreversible data loss.
+- It works well as a lightweight guardrail in CI.
+- It competes on specificity instead of trying to replace broad AI review tools.
+
+## Why teams install it
+
+- Catch destructive schema changes before merge
+- Warn on `NOT NULL` changes that can fail on existing rows
+- Flag non-concurrent index creation that can lock Postgres writes
+- Create GitHub annotations directly on pull requests
+- Start with a simple ruleset teams can actually trust
 
 ## What it catches
 
@@ -17,39 +29,7 @@ This is intentionally shaped like a sellable niche tool:
 - Rename operations
 - Bulk `DELETE FROM` statements
 
-## Quick start
-
-```bash
-npm install
-npm run demo
-```
-
-Scan a target directory:
-
-```bash
-npm run check -- path/to/migrations
-```
-
-Use the config file in the project root:
-
-```json
-{
-  "target": "db/migrate",
-  "output": "github",
-  "failOn": "high",
-  "disabledRules": [],
-  "include": ["**/*.sql", "**/*.rb"],
-  "exclude": ["**/safe/**", "**/schema.prisma"]
-}
-```
-
-Override at runtime:
-
-```bash
-npm run check -- db/migrate --output json --fail-on medium
-```
-
-## GitHub Action
+## Install in GitHub Actions
 
 ```yaml
 name: Migration checks
@@ -62,12 +42,75 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: your-org/migration-sentinel@v0.1.0
+      - uses: toruyamad-alt/migration-sentinel@v0.1.1
         with:
           target: db/migrate
           output: github
           fail-on: high
 ```
+
+## Example config
+
+Create `.migration-sentinel.json` in your repository:
+
+```json
+{
+  "target": "db/migrate",
+  "output": "github",
+  "failOn": "high",
+  "disabledRules": [],
+  "include": ["**/*.sql", "**/*.rb"],
+  "exclude": ["**/safe/**", "**/schema.prisma"]
+}
+```
+
+## Local CLI usage
+
+```bash
+npm install
+npm run demo
+```
+
+Scan a target directory:
+
+```bash
+npm run check -- path/to/migrations
+```
+
+Override at runtime:
+
+```bash
+npm run check -- db/migrate --output json --fail-on medium
+```
+
+## Exit codes
+
+- `0`: no findings
+- `1`: medium-risk findings only
+- `2`: at least one high-risk finding
+
+## Example findings
+
+```text
+[HIGH] NOT NULL added without obvious backfill
+  file: 202603190001_risky.sql:1
+  rule: unsafe-not-null
+  why:  Adding NOT NULL without a backfill or default can fail on existing rows during deploy.
+```
+
+## Best fit
+
+- Rails monoliths with frequent migrations
+- Prisma or SQL migration pipelines
+- Small backend teams that want a fast safety net in CI
+- Teams that do not want a heavyweight platform rollout yet
+
+## Roadmap
+
+- a GitHub Action that blocks unsafe migrations
+- a GitHub App with team-level policy settings
+- a VS Code extension for pre-PR checks
+- a hosted dashboard with audit history
 
 ## Release checks
 
@@ -76,29 +119,7 @@ npm test
 npm run pack:dry
 ```
 
-Exit codes:
-
-- `0`: no findings
-- `1`: medium-risk findings only
-- `2`: at least one high-risk finding
-
-## Why this is monetizable
-
-Generic AI review already exists. A safer wedge is a tool that prevents specific release accidents:
-
-- migration failures
-- table locks
-- irreversible data loss
-- schema changes that break rolling deploys
-
-This prototype can grow into:
-
-- a GitHub Action that blocks unsafe migrations
-- a GitHub App with team-level policy settings
-- a VS Code extension for pre-PR checks
-- a hosted dashboard with audit history
-
-## Packaging for sale
+## Packaging and launch notes
 
 - [`action.yml`](/Users/ty/Desktop/brain/action.yml): GitHub Action metadata
 - [`docs/pricing.md`](/Users/ty/Desktop/brain/docs/pricing.md): suggested pricing tiers

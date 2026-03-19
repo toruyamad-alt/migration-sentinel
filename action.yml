@@ -1,5 +1,5 @@
 name: "Migration Sentinel"
-description: "Flag risky database migrations in pull requests before they reach production."
+description: "Stop risky database migrations before they break production."
 author: "Codex prototype"
 branding:
   icon: "shield"

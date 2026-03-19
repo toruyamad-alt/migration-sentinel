@@ -10,7 +10,7 @@ Stop risky database migrations before they break production.
 
 ## Short description
 
-Migration Sentinel scans pull requests for dangerous schema changes such as destructive drops, unsafe `NOT NULL` additions, non-concurrent index creation, and bulk deletes.
+Migration Sentinel scans pull requests for dangerous schema changes such as destructive drops, unsafe `NOT NULL` additions, non-concurrent index creation, and bulk deletes before they hit production.
 
 ## Ideal customer
 
@@ -24,6 +24,10 @@ Migration Sentinel scans pull requests for dangerous schema changes such as dest
 - Leaves line-level GitHub annotations on pull requests
 - Starts with a narrow rule set that is easy to understand and trust
 - Can grow into organization-specific policy enforcement
+
+## Suggested CTA
+
+Install Migration Sentinel on one repository and catch migration risks before your next deploy.
 
 ## Launch copy
 

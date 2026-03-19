@@ -1,2 +1,5 @@
 node_modules
 *.tgz
+.chrome-automation-profile
+.playwright-github-profile
+artifacts/

@@ -49,6 +49,10 @@ jobs:
           fail-on: high
 ```
 
+Working demo repository:
+
+- [migration-sentinel-demo](https://github.com/toruyamad-alt/migration-sentinel-demo)
+
 ## Example config
 
 Create `.migration-sentinel.json` in your repository:
@@ -62,6 +66,28 @@ Create `.migration-sentinel.json` in your repository:
   "include": ["**/*.sql", "**/*.rb"],
   "exclude": ["**/safe/**", "**/schema.prisma"]
 }
+```
+
+## Framework examples
+
+Rails or plain SQL migrations:
+
+```yaml
+- uses: toruyamad-alt/migration-sentinel@v0.1.1
+  with:
+    target: db/migrate
+    output: github
+    fail-on: high
+```
+
+Prisma migrations:
+
+```yaml
+- uses: toruyamad-alt/migration-sentinel@v0.1.1
+  with:
+    target: prisma/migrations
+    output: github
+    fail-on: high
 ```
 
 ## Local CLI usage

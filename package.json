@@ -20,7 +20,8 @@
     "demo:github": "tsx src/index.ts fixtures --output github",
     "demo:json": "tsx src/index.ts fixtures --output json",
     "test": "npm run build && npm run check -- fixtures/safe && (npm run check -- fixtures/unsafe || test $? -eq 2)",
-    "pack:dry": "npm pack --dry-run"
+    "pack:dry": "npm pack --dry-run",
+    "set:repo": "node scripts/set-repo.mjs"
   },
   "keywords": [
     "github-action",
